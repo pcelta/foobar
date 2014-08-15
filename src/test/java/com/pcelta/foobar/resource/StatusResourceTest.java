@@ -2,6 +2,10 @@ package com.pcelta.foobar.resource;
 
 import static org.junit.Assert.assertEquals;
 
+import javax.json.Json;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -21,17 +25,8 @@ public class StatusResourceTest {
 
 	    @Before
 	    public void setUp() throws Exception {
-	        // start the server
 	        server = Main.startServer();
-	        // create the client
 	        Client c = ClientBuilder.newClient();
-
-	        // uncomment the following line if you want to enable
-	        // support for JSON in the client (you also have to uncomment
-	        // dependency on jersey-media-json module in pom.xml and Main.startServer())
-	        // --
-	         // c.configuration().enable(new org.glassfish.jersey.media.json.JsonJaxbFeature());
-
 	        target = c.target(Main.BASE_URI);
 	    }
 
@@ -40,12 +35,15 @@ public class StatusResourceTest {
 	        server.stop();
 	    }
 
-	    /**
-	     * Test to see that the message "Got it!" is sent in the response.
-	     */
 	    @Test
 	    public void testShow() {
-	        String responseMsg = target.path("status").request().get(String.class);
-	        assertEquals(Status.createSuccess(), responseMsg);
+	        String result = target.path("status").request().get(String.class);
+	        
+	        JsonObjectBuilder jsonBuilder = Json.createObjectBuilder();
+	        jsonBuilder.add("code", 200)
+	        		   .add("description", "running");
+	        
+	        JsonObject expected = jsonBuilder.build();
+	        assertEquals(expected.toString(), result);
 	    }
 }
