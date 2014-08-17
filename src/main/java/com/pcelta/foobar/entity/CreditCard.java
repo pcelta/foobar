@@ -25,7 +25,7 @@ public class CreditCard {
 	@Column(name="customer_name")
 	private String customerName;
 	
-	@Column(name="limit")
+	@Column(name="limit_amount")
 	private Double limit;
 	
 	@Column(name="is_active")
