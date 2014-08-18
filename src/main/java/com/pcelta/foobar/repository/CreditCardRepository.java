@@ -13,16 +13,10 @@ import org.hibernate.annotations.NotFound;
 
 import com.pcelta.foobar.entity.CreditCard;
 
-public class CreditCardRepository {
-	
-	private EntityManager entityManager;
-	
-	public CreditCardRepository(EntityManager entityManager){
-		this.entityManager = entityManager;
-	}
+public class CreditCardRepository extends AbstractRepository {
 	
 	public CreditCard findOneByNumber(String creditCardNumber) {
-		Query query = this.entityManager.createQuery("from CreditCard cc where cc.number = :number");
+		Query query = this.getEntityManager().createQuery("from CreditCard cc where cc.number = :number");
 		query.setParameter("number", creditCardNumber);
 		
 		List<CreditCard> cards = query.getResultList();
@@ -30,7 +24,7 @@ public class CreditCardRepository {
 		if (cards.size() > 0) {
 			return cards.get(0);
 		}
-		
+
 		return new CreditCard();
 	}
 	
