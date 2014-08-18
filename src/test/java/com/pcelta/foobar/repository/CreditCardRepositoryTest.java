@@ -1,8 +1,7 @@
 package com.pcelta.foobar.repository;
 
-import java.util.Date;
-
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -24,13 +23,11 @@ public class CreditCardRepositoryTest {
 		this.entityManager = com.pcelta.foobar.factory.EntityManagerFactory.createEntityManager();
 	}
 
-	@Test
+	@Test(expected=EntityNotFoundException.class)
 	public void testFindByNumberNoResults() {
 
 		CreditCardRepository repository = new CreditCardRepository();
 		CreditCard result = repository.findOneByNumber("4111411141114111");
-
-		Assert.assertNull(result.getId());
 	}
 
 	@Test
@@ -54,7 +51,6 @@ public class CreditCardRepositoryTest {
 	
 	@After
 	public void tearDown() throws Exception {
-		this.entityManager = com.pcelta.foobar.factory.EntityManagerFactory.createEntityManager();
 		EntityTransaction transaction = this.entityManager.getTransaction();
 		transaction.begin();
 		Query query = this.entityManager.createQuery("DELETE FROM CreditCard");
