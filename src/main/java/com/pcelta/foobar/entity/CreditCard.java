@@ -1,5 +1,6 @@
 package com.pcelta.foobar.entity;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -20,7 +21,7 @@ public class CreditCard {
 	private String cvv;
 	
 	@Column(name="validity")
-	private Date validity;
+	private Calendar validity;
 	
 	@Column(name="customer_name")
 	private String customerName;
@@ -61,11 +62,11 @@ public class CreditCard {
 		this.cvv = cvv;
 	}
 
-	public Date getValidity() {
+	public Calendar getValidity() {
 		return this.validity;
 	}
 
-	public void setValidity(Date validity) {
+	public void setValidity(Calendar validity) {
 		this.validity = validity;
 	}
 
