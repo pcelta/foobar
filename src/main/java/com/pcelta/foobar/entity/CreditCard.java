@@ -9,105 +9,117 @@ import javax.persistence.*;
 @Table(name="credit_cards")
 public class CreditCard {
 
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private Integer id;
-	
-	@Column(name="number")
-	private String number;
-	
-	@Column(name="cvv")
-	private String cvv;
-	
-	@Column(name="validity")
-	private Calendar validity;
-	
-	@Column(name="customer_name")
-	private String customerName;
-	
-	@Column(name="limit_amount")
-	private Double limit;
-	
-	@Column(name="is_active")
-	private Boolean isActive;
-	
-	@Column(name="due_account")
-	private Date dueAccount;
-	
-	@Column(name="closing")
-	private Date closing;
+    @Id
+    @GeneratedValue
+    @Column(name="id")
+    private Integer id;
 
-	public Integer getId() {
-		return this.id;
-	}
+    @Column(name="number")
+    private String number;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    @Column(name="cvv")
+    private String cvv;
 
-	public String getNumber() {
-		return this.number;
-	}
+    @Column(name="validity")
+    private Calendar validity;
 
-	public void setNumber(String number) {
-		this.number = number;
-	}
+    @Column(name="customer_name")
+    private String customerName;
 
-	public String getCvv() {
-		return this.cvv;
-	}
+    @Column(name="`limit`")
+    private Double limit;
 
-	public void setCvv(String cvv) {
-		this.cvv = cvv;
-	}
+    @Column(name="available_limit")
+    private Double availableLimit;
 
-	public Calendar getValidity() {
-		return this.validity;
-	}
+    @Column(name="is_active")
+    private Boolean isActive;
 
-	public void setValidity(Calendar validity) {
-		this.validity = validity;
-	}
+    @Column(name="due_account")
+    private Date dueAccount;
 
-	public String getCustomerName() {
-		return this.customerName;
-	}
+    @Column(name="closing")
+    private Date closing;
 
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
-	}
+    public Integer getId() {
+        return this.id;
+    }
 
-	public Double getLimit() {
-		return this.limit;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setLimit(Double limit) {
-		this.limit = limit;
-	}
+    public String getNumber() {
+        return this.number;
+    }
 
-	public Boolean getIsActive() {
-		return this.isActive;
-	}
+    public void setNumber(String number) {
+        this.number = number;
+    }
 
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
+    public String getCvv() {
+        return this.cvv;
+    }
 
-	public Date getDueAccount() {
-		return this.dueAccount;
-	}
+    public void setCvv(String cvv) {
+        this.cvv = cvv;
+    }
 
-	public void setDueAccount(Date dueAccount) {
-		this.dueAccount = dueAccount;
-	}
+    public Calendar getValidity() {
+        return this.validity;
+    }
 
-	public Date getClosing() {
-		return closing;
-	}
+    public void setValidity(Calendar validity) {
+        this.validity = validity;
+    }
 
-	public void setClosing(Date closing) {
-		this.closing = closing;
-	}
-	
+    public String getCustomerName() {
+        return this.customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public Double getLimit() {
+        return this.limit;
+    }
+
+    public void setLimit(Double limit) {
+        this.limit = limit;
+        this.availableLimit = limit;
+    }
+
+    public Boolean getIsActive() {
+        return this.isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public Date getDueAccount() {
+        return this.dueAccount;
+    }
+
+    public void setDueAccount(Date dueAccount) {
+        this.dueAccount = dueAccount;
+    }
+
+    public Date getClosing() {
+        return closing;
+    }
+
+    public void setClosing(Date closing) {
+        this.closing = closing;
+    }
+
+    public Double getAvailableLimit() {
+        return this.availableLimit;
+    }
+
+    public void setAvailableLimit(Double availableLimit) {
+        this.availableLimit = availableLimit;
+    }
+
 }
