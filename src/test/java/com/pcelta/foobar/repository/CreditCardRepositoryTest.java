@@ -16,46 +16,44 @@ import com.pcelta.foobar.entity.factory.CreditCardFactory;
 
 public class CreditCardRepositoryTest {
 
-	private EntityManager entityManager;
+    private EntityManager entityManager;
 
-	@Before
-	public void setUp() throws Exception {
-		this.entityManager = com.pcelta.foobar.factory.EntityManagerFactory.createEntityManager();
-	}
+    @Before
+    public void setUp() throws Exception {
+        this.entityManager = com.pcelta.foobar.factory.EntityManagerFactory.createEntityManager();
+    }
 
-	@Test(expected=EntityNotFoundException.class)
-	public void testFindByNumberNoResults() {
+    @Test(expected=EntityNotFoundException.class)
+    public void testFindByNumberNoResults() {
+        CreditCardRepository repository = new CreditCardRepository();
+        CreditCard result = repository.findOneByNumber("4111411141114111");
+    }
 
-		CreditCardRepository repository = new CreditCardRepository();
-		CreditCard result = repository.findOneByNumber("4111411141114111");
-	}
+    @Test
+    public void testFindByNumberOneResult() {
+        CreditCard card = CreditCardFactory.createSimple();
 
-	@Test
-	public void testFindByNumberOneResult() {
-		CreditCard card = CreditCardFactory.createSimple();
-		
-		String creditCardNumber = card.getNumber();
+        String creditCardNumber = card.getNumber();
 
-		// inserting data
-		EntityTransaction transaction = this.entityManager.getTransaction();
-		transaction.begin();
-		this.entityManager.persist(card);
-		transaction.commit();
+        // inserting data
+        EntityTransaction transaction = this.entityManager.getTransaction();
+        transaction.begin();
+        this.entityManager.persist(card);
+        transaction.commit();
 
-		CreditCardRepository repository = new CreditCardRepository();
-		CreditCard result = repository.findOneByNumber(creditCardNumber);
+        CreditCardRepository repository = new CreditCardRepository();
+        CreditCard result = repository.findOneByNumber(creditCardNumber);
 
-		Assert.assertEquals(creditCardNumber, result.getNumber());
-	}
+        Assert.assertEquals(creditCardNumber, result.getNumber());
+    }
 
-	
-	@After
-	public void tearDown() throws Exception {
-		EntityTransaction transaction = this.entityManager.getTransaction();
-		transaction.begin();
-		Query query = this.entityManager.createQuery("DELETE FROM CreditCard");
-		query.executeUpdate();
-		transaction.commit();
-	}
+    @After
+    public void tearDown() throws Exception {
+        EntityTransaction transaction = this.entityManager.getTransaction();
+        transaction.begin();
+        Query query = this.entityManager.createQuery("DELETE FROM CreditCard");
+        query.executeUpdate();
+        transaction.commit();
+    }
 
 }

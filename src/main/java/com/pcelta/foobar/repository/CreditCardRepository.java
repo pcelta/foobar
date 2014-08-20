@@ -2,32 +2,24 @@ package com.pcelta.foobar.repository;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.ws.rs.NotFoundException;
-
-import org.hibernate.annotations.NotFound;
 
 import com.pcelta.foobar.entity.CreditCard;
 
 public class CreditCardRepository extends AbstractRepository {
-	
-	public CreditCard findOneByNumber(String creditCardNumber) throws EntityNotFoundException {
-		Query query = this.getEntityManager().createQuery("from CreditCard cc where cc.number = :number");
-		query.setParameter("number", creditCardNumber);
-		
-		List<CreditCard> cards = query.getResultList();
-	
-		if (cards.size() > 0) {
-			return cards.get(0);
-		}
 
-		throw new EntityNotFoundException();
-	}
-	
+    public CreditCard findOneByNumber(String creditCardNumber) throws EntityNotFoundException {
+        Query query = this.getEntityManager().createQuery("from CreditCard cc where cc.number = :number");
+        query.setParameter("number", creditCardNumber);
+
+        List<CreditCard> cards = query.getResultList();
+
+        if (cards.size() > 0) {
+            return cards.get(0);
+        }
+
+        throw new EntityNotFoundException();
+    }
 
 }
