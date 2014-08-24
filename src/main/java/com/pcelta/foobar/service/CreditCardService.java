@@ -4,10 +4,16 @@ import javax.persistence.EntityNotFoundException;
 
 import com.pcelta.foobar.entity.CreditCard;
 import com.pcelta.foobar.repository.CreditCardRepository;
+import com.pcelta.foobar.validate.CreditCardValidate;
 
 public class CreditCardService {
 
     private CreditCardRepository repository;
+    private CreditCardValidate validator;
+
+    public void setRepository(CreditCardRepository repository) {
+        this.repository = repository;
+    }
 
     private CreditCardRepository getRepository() {
         if (this.repository == null) {
@@ -17,9 +23,17 @@ public class CreditCardService {
         return this.repository;
     }
 
+    public CreditCardValidate getValidator() {
+        if (this.validator == null) {
+            this.validator = new CreditCardValidate();
+        }
+
+        return this.validator;
+    }
+
     public Boolean hasSufficientBalance(CreditCard creditCard, Double amount) {
         try {
-            CreditCard cardToBeValided = this.repository.findOneByNumber(creditCard.getNumber());
+            CreditCard cardToBeValided = this.getRepository().findOneByNumber(creditCard.getNumber());
             if (cardToBeValided.getAvailableLimit() <= 0) {
                 return false;
             }
@@ -35,7 +49,18 @@ public class CreditCardService {
         }
     }
 
-    public void setRepository(CreditCardRepository repository) {
-        this.repository = repository;
+    public Boolean exists(CreditCard creditCard) {
+        try {
+            CreditCard cardExists = this.getRepository().findOneByNumber(creditCard.getNumber());
+
+            return true;
+        } catch(EntityNotFoundException e) {
+
+            return false;
+        }
+    }
+
+    public CreditCard getCreditCardByNumber(String number) {
+        return this.getRepository().findOneByNumber(number);
     }
 }
