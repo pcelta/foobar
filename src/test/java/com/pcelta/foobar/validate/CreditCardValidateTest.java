@@ -31,12 +31,54 @@ public class CreditCardValidateTest {
         
         CreditCard creditCard = new CreditCard();
 
-        Calendar invalidExpiration = Calendar.getInstance();
-        invalidExpiration.add(Calendar.YEAR, 1);
+        Calendar validExpiration = Calendar.getInstance();
+        validExpiration.add(Calendar.YEAR, 1);
 
-        creditCard.setValidity(invalidExpiration);
+        creditCard.setValidity(validExpiration);
+        creditCard.setNumber("1234123412341234");
         Boolean result = validator.isValid(creditCard);
 
         Assert.assertTrue(result);
+    }
+
+    @Test
+    public void testValidateShouldReturnFalseWhenCardNumberInvalid() {
+        CreditCardValidate validator = new CreditCardValidate();
+        
+        CreditCard creditCard = new CreditCard();
+        creditCard.setNumber("xxx");
+        Calendar validExpiration = Calendar.getInstance();
+        validExpiration.add(Calendar.YEAR, 1);
+        creditCard.setValidity(validExpiration);
+
+        Boolean result = validator.isValid(creditCard);
+
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void testValidateShouldReturnFalseWhenCardNumberNotDefined() {
+        CreditCardValidate validator = new CreditCardValidate();
+        
+        CreditCard creditCard = new CreditCard();
+        Calendar validExpiration = Calendar.getInstance();
+        validExpiration.add(Calendar.YEAR, 1);
+        creditCard.setValidity(validExpiration);
+
+        Boolean result = validator.isValid(creditCard);
+
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void testValidateShouldReturnFalseWhenValidityNotDefined() {
+        CreditCardValidate validator = new CreditCardValidate();
+        
+        CreditCard creditCard = new CreditCard();
+        creditCard.setNumber("xxx");
+
+        Boolean result = validator.isValid(creditCard);
+
+        Assert.assertFalse(result);
     }
 }
