@@ -4,3 +4,6 @@ jdk:
 branches:
   only:
     - master
+before_script:
+  - mysql -e 'create database foobar;'
+  - mysql -utravis foobar < docs/foobar.sql
