@@ -3,6 +3,7 @@ package com.pcelta.foobar.repository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import junit.framework.Assert;
@@ -23,7 +24,7 @@ public class CreditCardRepositoryTest {
         this.entityManager = com.pcelta.foobar.factory.EntityManagerFactory.createEntityManager();
     }
 
-    @Test(expected=EntityNotFoundException.class)
+    @Test(expected=NoResultException.class)
     public void testFindByNumberNoResults() {
         CreditCardRepository repository = new CreditCardRepository();
         CreditCard result = repository.findOneByNumber("4111411141114111");
@@ -43,6 +44,24 @@ public class CreditCardRepositoryTest {
 
         CreditCardRepository repository = new CreditCardRepository();
         CreditCard result = repository.findOneByNumber(creditCardNumber);
+
+        Assert.assertEquals(creditCardNumber, result.getNumber());
+    }
+
+    @Test
+    public void testFindByNumberAndExpirationShouldReturnOneResult() {
+        CreditCard card = CreditCardFactory.createSimple();
+
+        String creditCardNumber = card.getNumber();
+
+        // inserting data
+        EntityTransaction transaction = this.entityManager.getTransaction();
+        transaction.begin();
+        this.entityManager.persist(card);
+        transaction.commit();
+
+        CreditCardRepository repository = new CreditCardRepository();
+        CreditCard result = repository.findOneByNumberAndExpiration(creditCardNumber, card.getValidity());
 
         Assert.assertEquals(creditCardNumber, result.getNumber());
     }

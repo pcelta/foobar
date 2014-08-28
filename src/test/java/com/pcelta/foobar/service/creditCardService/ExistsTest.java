@@ -1,6 +1,7 @@
 package com.pcelta.foobar.service.creditCardService;
 
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 
 import junit.framework.Assert;
 
@@ -22,7 +23,7 @@ public class ExistsTest {
         CreditCardRepository mockedRepository = Mockito.mock(CreditCardRepository.class);
 
         Mockito.when(mockedRepository.findOneByNumber(transactionCard.getNumber())).
-                thenThrow(EntityNotFoundException.class);
+                thenThrow(NoResultException.class);
 
         CreditCardService service = new CreditCardService();
         service.setRepository(mockedRepository);
