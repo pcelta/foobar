@@ -4,8 +4,9 @@ import com.pcelta.foobar.exception.InvalidArgumentException;
 
 public class TransactionStatus {
 
-    public static Integer APPROVED = 0;
-    public static Integer DENIED   = 1;
+    public static Integer APPROVED        = 0;
+    public static Integer DENIED          = 1;
+    public static Integer INVALID_REQUEST = 2;
 
     private Integer status;
 
@@ -23,5 +24,9 @@ public class TransactionStatus {
 
     public static TransactionStatus createApprovedStatus() {
         return new TransactionStatus(TransactionStatus.APPROVED);
+    }
+
+    public static TransactionStatus createInvalidRequestStatus() {
+        return new TransactionStatus(TransactionStatus.INVALID_REQUEST);
     }
 }
