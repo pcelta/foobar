@@ -15,6 +15,9 @@ import com.pcelta.foobar.exception.InvalidArgumentException;
 
 public class TransactionBuilder {
 
+    private static int CURRENT_AGE         = 2000;
+    private static int DIFF_CALENDAR_MONTH = 1;
+
     public static Transaction buildByRequestData(String requestData) throws InvalidArgumentException{
         SAXBuilder saxBuilder = new SAXBuilder();
         Document document;
@@ -46,8 +49,8 @@ public class TransactionBuilder {
         Calendar validity = Calendar.getInstance();
 
         String[] monthYear = validityElement.getText().split("/");
-        validity.set(Calendar.MONTH, Integer.parseInt(monthYear[0]));
-        validity.set(Calendar.YEAR, Integer.parseInt(monthYear[1]));
+        validity.set(Calendar.MONTH, Integer.parseInt(monthYear[0]) - TransactionBuilder.DIFF_CALENDAR_MONTH);
+        validity.set(Calendar.YEAR, TransactionBuilder.CURRENT_AGE + Integer.parseInt(monthYear[1]));
 
         return validity;
     }

@@ -24,8 +24,8 @@ public class TransactionBuilderTest {
         
         Assert.assertNotNull(result.getCreditCard());
         Assert.assertEquals("1234567890987654", result.getCreditCard().getNumber());
-        Assert.assertEquals(05, result.getCreditCard().getValidity().get(Calendar.MONTH));
-        Assert.assertEquals(12, result.getCreditCard().getValidity().get(Calendar.YEAR));
+        Assert.assertEquals(04, result.getCreditCard().getValidity().get(Calendar.MONTH));
+        Assert.assertEquals(2012, result.getCreditCard().getValidity().get(Calendar.YEAR));
         Assert.assertEquals(10.00, result.getAmount());
     }
 
