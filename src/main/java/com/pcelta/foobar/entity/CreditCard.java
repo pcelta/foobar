@@ -36,10 +36,10 @@ public class CreditCard {
     private Boolean isActive;
 
     @Column(name="due_account")
-    private Date dueAccount;
+    private Calendar dueAccount;
 
     @Column(name="closing")
-    private Date closing;
+    private Calendar closing;
 
     public Integer getId() {
         return this.id;
@@ -98,19 +98,19 @@ public class CreditCard {
         this.isActive = isActive;
     }
 
-    public Date getDueAccount() {
+    public Calendar getDueAccount() {
         return this.dueAccount;
     }
 
-    public void setDueAccount(Date dueAccount) {
+    public void setDueAccount(Calendar dueAccount) {
         this.dueAccount = dueAccount;
     }
 
-    public Date getClosing() {
+    public Calendar getClosing() {
         return closing;
     }
 
-    public void setClosing(Date closing) {
+    public void setClosing(Calendar closing) {
         this.closing = closing;
     }
 

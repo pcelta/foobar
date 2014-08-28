@@ -1,7 +1,6 @@
 package com.pcelta.foobar.entity.factory;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import com.pcelta.foobar.entity.CreditCard;
 
@@ -14,9 +13,9 @@ public class CreditCardFactory {
         card.setValidity(Calendar.getInstance());
         card.setCustomerName("PCELTA RIBEIRO");
         card.setLimit(new Double(30.50));
-        card.setDueAccount(new Date());
+        card.setDueAccount(Calendar.getInstance());
         card.setIsActive(true);
-        card.setClosing(new Date());
+        card.setClosing(Calendar.getInstance());
         
         return card;
     }
