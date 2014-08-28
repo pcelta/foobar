@@ -32,7 +32,7 @@ public class TransactionResource {
             Transaction transaction = TransactionBuilder.buildByRequestData(requestData);
             
             TransactionService service = new TransactionService();
-            TransactionStatus transactionStatus = service.run(transaction);
+            TransactionStatus transactionStatus = service.perform(transaction);
             
             return ResponseBuilder.build(transactionStatus.getStatus());
         } catch (InvalidArgumentException e) {
